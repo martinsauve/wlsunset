@@ -19,6 +19,7 @@
 #include "wlr-gamma-control-unstable-v1-client-protocol.h"
 #include "color_math.h"
 #include "str_vec.h"
+#include "tz_to_coords.h"
 
 #if defined(SPEEDRUN)
 static time_t start = 0, offset = 0, multiplier = 1000;
@@ -924,6 +925,19 @@ int main(int argc, char *argv[]) {
 		.elevation_daylight = 3.0,
 		.elevation_twilight = -6.0,
 	};
+
+   char *tz = get_local_tz_name();
+   double lat, lon;
+   if (tz != NULL) {
+      if (lookup_tz_coords(tz, &lat, &lon) == 0) {
+         config.latitude = lat;
+         config.longitude = lon;
+         fprintf(stderr, "inferred location from timezone %s: lat %lf, long %lf\n",
+            tz, lat, lon);
+      }
+   }
+   free(tz);
+
 	str_vec_init(&config.output_names);
 
 	int ret = EXIT_FAILURE;
