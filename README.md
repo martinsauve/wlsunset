@@ -1,5 +1,9 @@
 # wlsunset
 
+This forks implements basic autodetection of the location based on the timezone of the machine using TZDB. Should work everywhere but only tested on Manjaro and Arch, help needed!
+
+The original repo on github is just a mirror, I would need to submit the patch via a mailing list if i wanted to upstream...
+
 Day/night gamma adjustments for Wayland compositors supporting `wlr-gamma-control-unstable-v1`.
 
 # How to build and install
@@ -18,10 +22,25 @@ See the helptext (`wlsunset -h`)
 
 ```
 # Beijing lat/long.
-wlsunset -l 39.9 -L 116.3
+wlsunset -l 39.9 -L 116.3 -t 5000 -T 6500
+```
+Greater precision than one decimal place [serves no purpose](https://xkcd.com/2170/) other than padding the command-line.
+
+## Location autodetect
+
+If no lat/lon is provided, tries to read it from the `TZ` environment variable or the local time set on the machine.
+
+```
+TZ='Europe/Paris' wlsunset
+>> inferred location from timezone Europe/Paris: lat 48.86667, lon 2.333333
+>> ...
 ```
 
-Greater precision than one decimal place [serves no purpose](https://xkcd.com/2170/) other than padding the command-line.
+```
+wlsunset
+>> inferred location from timezone America/Los_Angeles: lat 34.052222, long -118.242778
+>> ...
+```
 
 # Help
 
