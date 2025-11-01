@@ -1,6 +1,6 @@
 # wlsunset
 
-This fork implements basic autodetection of the location based on the timezone of the machine using TZDB. Should work everywhere but only tested on Manjaro and Arch, help needed!
+This fork implements basic autodetection of the location based on the timezone of the machine using TZDB. Should work everywhere but only tested on Manjaro and Arch, help welcome!
 
 The original repo on github is just a mirror, I would need to submit the patch via a mailing list if i wanted to upstream...
 
