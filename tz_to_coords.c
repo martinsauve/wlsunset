@@ -13,7 +13,7 @@
 
 
 
-static const char *zoneinfo_paths[] = {
+static const char * const zoneinfo_paths[] = {
 	"/usr/share/zoneinfo/zone1970.tab",
 	"/usr/share/zoneinfo/zone.tab",
 	"/usr/lib/zoneinfo/zone1970.tab",
@@ -138,7 +138,7 @@ int lookup_tz_coords(const char *tzname, double *out_lat, double *out_lon) {
 	}
 
 	// then add hardcoded paths
-	for (const char **p = zoneinfo_paths; p && *p; ++p) {
+	for (const char * const *p = zoneinfo_paths; p && *p; ++p) {
 		str_vec_push(&paths, *p);
 	}
 
