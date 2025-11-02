@@ -1,3 +1,5 @@
+# TODO: check if the timezone parsing works on BSD, NIX and other distros than Arch/Manjaro. Wayland compositors don't matter for this.
+
 # wlsunset
 
 This fork implements basic autodetection of the location based on the timezone of the machine using TZDB. Should work everywhere but only tested on Manjaro and Arch, help welcome!
