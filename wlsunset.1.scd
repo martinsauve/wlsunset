@@ -78,6 +78,16 @@ The point of transition can be controlled by changing the configured solar
 elevation thresholds with *-E* and *-e*. It is also possible to use a manually
 set time of transition using `*S*, *-s* and *-d*.
 
+# DEFAULT LOCATION
+
+If no latitude and longitude is specified and manual time is not provided,
+wlsunset will attempt to infer the location from the TZ environment variable
+or the `/etc/timezone` file, and comparing the result to the system's database
+of timezones locations (see tzselect(8) for more information).
+
+This only works if the timezone is set to a region/city format, e.g.
+"Europe/London" works, while "UTC" does not.
+
 # COLOR TEMPERATURE
 
 Color temperature refers to the color of light emitted by an object (a black
