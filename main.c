@@ -926,17 +926,6 @@ int main(int argc, char *argv[]) {
 		.elevation_twilight = -6.0,
 	};
 
-   char *tz = get_local_tz_name();
-   double lat, lon;
-   if (tz != NULL) {
-      if (lookup_tz_coords(tz, &lat, &lon) == 0) {
-         config.latitude = lat;
-         config.longitude = lon;
-         fprintf(stderr, "inferred location from timezone %s: lat %lf, long %lf\n",
-            tz, lat, lon);
-      }
-   }
-   free(tz);
 
 	str_vec_init(&config.output_names);
 
@@ -1033,6 +1022,21 @@ int main(int argc, char *argv[]) {
 		}
 		config.elevation_daylight = RADIANS(90.833 - config.elevation_daylight);
 	}
+
+	if (isnan(config.latitude) && isnan(config.longitude) && !config.manual_time) {
+		char *tz = get_local_tz_name();
+		double lat, lon;
+		if (tz != NULL) {
+			if (lookup_tz_coords(tz, &lat, &lon) == 0) {
+				config.latitude = lat;
+				config.longitude = lon;
+				fprintf(stderr, "inferred location from timezone %s: lat %lf, long %lf\n",
+						tz, lat, lon);
+			}
+		}
+		free(tz);
+	}
+
 	ret = wlrun(config);
 end:
 	str_vec_free(&config.output_names);
