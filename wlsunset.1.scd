@@ -88,6 +88,9 @@ of timezones locations (see tzselect(8) for more information).
 This only works if the timezone is set to a region/city format, e.g.
 "Europe/London" works, while "UTC" does not.
 
+Please be aware that the inferred location may be off by a significant margin,
+especially in large timezones, which may lead to incorrect sunrise/sunset times.
+
 # COLOR TEMPERATURE
 
 Color temperature refers to the color of light emitted by an object (a black

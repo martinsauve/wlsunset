@@ -1002,6 +1002,19 @@ int main(int argc, char *argv[]) {
 					config.latitude);
 			goto end;
 		}
+		if (isnan(config.latitude) && isnan(config.longitude) && !config.manual_time) {
+			char *tz = get_local_tz_name();
+			double lat, lon;
+			if (tz != NULL) {
+				if (lookup_tz_coords(tz, &lat, &lon) == 0) {
+					config.latitude = lat;
+					config.longitude = lon;
+					fprintf(stderr, "inferred location from timezone %s: lat %lf, long %lf\n",
+							tz, lat, lon);
+				}
+			}
+			free(tz);
+		}
 		config.latitude = RADIANS(config.latitude);
 		if (config.longitude > 180.0 || config.longitude < -180.0) {
 			fprintf(stderr, "longitude (%lf) must be in interval [-180,180]\n",
@@ -1023,19 +1036,6 @@ int main(int argc, char *argv[]) {
 		config.elevation_daylight = RADIANS(90.833 - config.elevation_daylight);
 	}
 
-	if (isnan(config.latitude) && isnan(config.longitude) && !config.manual_time) {
-		char *tz = get_local_tz_name();
-		double lat, lon;
-		if (tz != NULL) {
-			if (lookup_tz_coords(tz, &lat, &lon) == 0) {
-				config.latitude = lat;
-				config.longitude = lon;
-				fprintf(stderr, "inferred location from timezone %s: lat %lf, long %lf\n",
-						tz, lat, lon);
-			}
-		}
-		free(tz);
-	}
 
 	ret = wlrun(config);
 end:
