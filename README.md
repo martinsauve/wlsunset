@@ -32,16 +32,20 @@ Greater precision than one decimal place [serves no purpose](https://xkcd.com/21
 
 If no lat/lon is provided, tries to read it from the `TZ` environment variable or the local time set on the machine.
 
-```
+Only works if the timezone is a geographical location, e.g. `Europe/London` works, but `UTC` does not. Should be set as so by default on most systems.
+
+```shell
 TZ='Europe/Paris' wlsunset
->> inferred location from timezone Europe/Paris: lat 48.86667, lon 2.333333
->> ...
+
+> inferred location from timezone Europe/Paris: lat 48.86667, lon 2.333333
+> ...
 ```
 
-```
+```shell
 wlsunset
->> inferred location from timezone America/Los_Angeles: lat 34.052222, long -118.242778
->> ...
+
+> inferred location from timezone America/Los_Angeles: lat 34.052222, long -118.242778
+> ...
 ```
 
 # Help
